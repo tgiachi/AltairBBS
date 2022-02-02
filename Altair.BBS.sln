@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altair.BBS.Api", "Altair.BBS.Api\Altair.BBS.Api.csproj", "{0699BBEB-9E00-4C53-A3A2-620D127861B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altair.BBS.Service", "Altair.BBS.Service\Altair.BBS.Service.csproj", "{F7B9607A-503D-4DCF-A367-08C313FCCF8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0699BBEB-9E00-4C53-A3A2-620D127861B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0699BBEB-9E00-4C53-A3A2-620D127861B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0699BBEB-9E00-4C53-A3A2-620D127861B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0699BBEB-9E00-4C53-A3A2-620D127861B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B9607A-503D-4DCF-A367-08C313FCCF8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B9607A-503D-4DCF-A367-08C313FCCF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B9607A-503D-4DCF-A367-08C313FCCF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B9607A-503D-4DCF-A367-08C313FCCF8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
