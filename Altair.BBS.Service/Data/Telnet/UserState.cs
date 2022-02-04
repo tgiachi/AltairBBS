@@ -9,6 +9,8 @@ public class UserState
 
     public Encoding TextEncoder { get; set; }
 
+    public UserStateOptions Options { get; set; } = new();
+
     public void SendText(string text, string crln = "\r\n")
     {
         TcpClientInfo.ClientSocket.Send(TextEncoder.GetBytes($"{text}{crln}"));
@@ -18,4 +20,9 @@ public class UserState
     {
         TcpClientInfo.ClientSocket.Send(data);
     }
+}
+
+public class UserStateOptions
+{
+    public bool isEchoEnabled { get; set; }
 }

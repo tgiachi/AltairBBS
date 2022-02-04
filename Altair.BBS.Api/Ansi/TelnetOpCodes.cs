@@ -5,7 +5,7 @@ public static class TelnetOpCodes
     public enum Commands
     {
         Iac = 0xFF,
-        Se = 0xF0,
+        SubEnd = 0xF0,
         Nop = 0xF1,
         Dm = 0xF2,
         Break = 0xF3,
