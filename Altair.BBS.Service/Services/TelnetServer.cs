@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Text;
 using Altair.BBS.Api.Ansi;
 using Altair.BBS.Service.Data.Tcp;
@@ -61,7 +61,7 @@ public class TelnetServer
         if (data.Length == 0)
             return;
 
-        while (data.Length > 0 && data[0] == (byte) TelnetOpCodes.Commands.Iac)
+        while (data.Length > 0 && data[0] == (byte)TelnetOpCodes.Commands.Iac)
         {
             data = ParseOpCodes(data, client);
         }
@@ -84,22 +84,24 @@ public class TelnetServer
                 _logger.Information("Command: {Cmd}", client.CurrentText);
                 client.CleanBuffer();
 
-               
+
                 var task = new Task(async () =>
                 {
-                    //userState.Send(0x1b, 0x5b, 0x31, 0x3B, 0x31, 0x48);
-                        userState.Send(0x1b, 0x5b, 0x32, 0x4A);
-                    userState.SendText("\r\n", "");
-                    userState.SendText("\x1B[10;10H");
+
+                    userState.Send(AnsiColors.ClearScreen());
+
+
                     await Task.Delay(1000);
-                    var data = "------------------------\r\n" +
+                    var data = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n" +
                                "\u001b[31mPlease enter your password:\u001b[0m\r\n" +
-                               "------------------------\r\n";
+                               "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n";
+
+                    client.IsPassword = true;
 
                     foreach (var ch in data)
                     {
                         await Task.Delay(10);
-                        userState.Send((byte) ch);
+                        userState.Send((byte)ch);
                     }
 
 
@@ -117,7 +119,7 @@ public class TelnetServer
         {
             if (client.IsPassword)
             {
-                client.ClientSocket.Send(Enumerable.Range(0, data.Length).Select(i => (byte) PasswordChar).ToArray());
+                client.ClientSocket.Send(Enumerable.Range(0, data.Length).Select(i => (byte)PasswordChar).ToArray());
             }
             else
             {
@@ -131,18 +133,18 @@ public class TelnetServer
     private byte[] ParseOpCodes(byte[] data, TcpClientInfo client)
     {
         var buffer = data;
-        if (buffer[0] == (byte) TelnetOpCodes.Commands.Iac)
+        if (buffer[0] == (byte)TelnetOpCodes.Commands.Iac)
         {
             buffer = buffer.Skip(1).ToArray();
 
-            if (buffer[0] == (byte) TelnetOpCodes.Commands.SubEnd)
+            if (buffer[0] == (byte)TelnetOpCodes.Commands.SubEnd)
             {
                 buffer = buffer.Skip(1).ToArray();
             }
 
-            if (buffer[0] == (byte) TelnetOpCodes.Commands.SubBegin)
+            if (buffer[0] == (byte)TelnetOpCodes.Commands.SubBegin)
             {
-                if (buffer[1] == (byte) TelnetOpCodes.Options.NegotiateAboutWindowSize)
+                if (buffer[1] == (byte)TelnetOpCodes.Options.NegotiateAboutWindowSize)
                 {
                     var size = buffer.Skip(2).Take(4).ToArray();
                     int witdh = size[1];
@@ -154,7 +156,7 @@ public class TelnetServer
                 }
             }
 
-            if (buffer[0] == (byte) TelnetOpCodes.TerminalType)
+            if (buffer[0] == (byte)TelnetOpCodes.TerminalType)
             {
             }
             else
@@ -162,12 +164,12 @@ public class TelnetServer
                 var commandRecord = buffer.Take(2).ToArray();
                 buffer = buffer.Skip(2).ToArray();
 
-                _logger.Information("{Command} {Option}", (TelnetOpCodes.Commands) commandRecord[0],
-                    (TelnetOpCodes.Options) commandRecord[1]);
+                _logger.Information("{Command} {Option}", (TelnetOpCodes.Commands)commandRecord[0],
+                    (TelnetOpCodes.Options)commandRecord[1]);
 
-                if (commandRecord[1] == (byte) TelnetOpCodes.Options.Echo)
+                if (commandRecord[1] == (byte)TelnetOpCodes.Options.Echo)
                 {
-                    client.IsEcho = commandRecord[0] == (byte) TelnetOpCodes.Commands.Wont;
+                    client.IsEcho = commandRecord[0] == (byte)TelnetOpCodes.Commands.Wont;
                 }
             }
         }

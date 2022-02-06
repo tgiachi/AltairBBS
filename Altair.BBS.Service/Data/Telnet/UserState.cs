@@ -11,6 +11,7 @@ public class UserState
 
     public UserStateOptions Options { get; set; } = new();
 
+
     public void SendText(string text, string crln = "\r\n")
     {
         TcpClientInfo.ClientSocket.Send(TextEncoder.GetBytes($"{text}{crln}"));
